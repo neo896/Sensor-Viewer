@@ -10,9 +10,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-18.04, windows-latest]
+        platform: [macos-latest, ubuntu-20.04, windows-latest]
         include:
-          - os: ubuntu-18.04
+          - os: ubuntu-20.04
             rust_target: x86_64-unknown-linux-gnu
           - os: macos-latest
             rust_target: x86_64-apple-darwin
@@ -35,7 +35,7 @@ jobs:
           rustup update --no-self-update
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
