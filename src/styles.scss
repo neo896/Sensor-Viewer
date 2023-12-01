@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+// .container {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 300px;
+//   height: 100%;
+//   overflow: hidden;
+
+//   .panel {
+//     top: 0;
+//     right: 0;
+//     width: 300px;
+//     height: 100%;
+//     background-color: black;
+//   }
+// }
+
+
+// .lable {
+//   div {
+//     background: #00000000;
+//     position: absolute;
+//     color: white;
+//     padding: 15px;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     border-radius: 30px;
+//     user-select: none;
+//   }
+// }
+
