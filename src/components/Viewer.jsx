@@ -4,9 +4,9 @@ import {
   GizmoHelper,
   GizmoViewport,
   Html,
-  TransformControls
 } from "@react-three/drei";
 import * as THREE from "three";
+import { useControls, button } from 'leva'
 import { useSnapshot } from "valtio";
 import SensorStore from "../store/SensorStore";
 import { findPathToTarget } from "../utils/findPathToTarget";
@@ -37,6 +37,32 @@ const Viewer = () => {
   const meshRefs = useRef({});
   const chassisRef = useRef()
   const [sensorViewer, setSensorViwer] = useState([]);
+  const [sensorMatrix, setSensorMatrix] = useState({})
+
+  const [{ tf }, set] = useControls(() => ({
+    "传感器": {
+      options: Object.keys(sensorMatrix),
+    },
+    "参考点": {
+      options: Object.keys(sensorMatrix)
+    },
+    "计算": button((get) => {
+      let sensor = get("传感器")
+      let rer = get("参考点")
+      let tfRes = sensorMatrix[rer].clone().invert().multiply(sensorMatrix[sensor])
+      let p = new THREE.Vector3()
+      let q = new THREE.Quaternion()
+      let s = new THREE.Vector3()
+      tfRes.decompose(p,q,s)
+      set({ tf: `Translation\nx: ${p.x} y: ${p.y} z: ${p.z}\n\nQuaternion\nx: ${q.x} y: ${q.y} z: ${q.z} w: ${q.w}` })
+    }),
+    "tf": {
+      value: "",
+      editable: false,
+    }
+
+  }), [sensorMatrix]
+  )
 
   useEffect(() => {
     const chassisMatrix = chassisRef.current.matrix
@@ -59,11 +85,24 @@ const Viewer = () => {
       }
       sensorViewerMatrix[item.name] = newM4
     })
- 
+
+    let sensorViewerMatrix_ = Object.assign({}, sensorViewerMatrix)
+    sensorViewerMatrix_["chassis"] = chassisRef.current.matrix
+    setSensorMatrix(sensorViewerMatrix_)
+
+    // if (sensorList.length > 0) {
+    //   const matrixC1toC2 = sensorViewerMatrix["c1"].clone().invert().multiply(sensorViewerMatrix["c2"])
+    //   let p = new THREE.Vector3()
+    //   let q = new THREE.Quaternion()
+    //   let s = new THREE.Vector3()
+    //   matrixC1toC2.decompose(p,q,s)
+    //   console.log(p,q,s)
+    // }
+
     let meshGroupList = []
     for (let prop in sensorViewerMatrix) {
       let meshGroup = (
-        <group rotation-z={Math.PI / 2} scale={[0.1,0.1,0.1]} matrixAutoUpdate={false} matrix={sensorViewerMatrix[prop]} key={prop} ref={(ref) => meshRefs.current[prop] = ref}>
+        <group rotation-z={Math.PI / 2} scale={[0.1, 0.1, 0.1]} matrixAutoUpdate={false} matrix={sensorViewerMatrix[prop]} key={prop} ref={(ref) => meshRefs.current[prop] = ref}>
           {basicMesh}
           <Html position={[0, 0, 0]} center >
             <div
@@ -93,7 +132,7 @@ const Viewer = () => {
         rotation={new THREE.Euler(Math.PI / 2, 0, 0)}
       />
 
-      <group ref={chassisRef} rotation-z={Math.PI / 2} scale={[0.1,0.1,0.1]}>
+      <group ref={chassisRef} rotation-z={Math.PI / 2} scale={[0.1, 0.1, 0.1]}>
         {basicMesh}
         <Html position={[0, 0.25, 0.25]} center >
           <div
