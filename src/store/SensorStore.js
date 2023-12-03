@@ -1,14 +1,10 @@
-import { proxy } from "valtio";
+import { proxy } from 'valtio';
 
 const SensorStore = proxy({
-  sensorList: []
+    sensorList: [],
 });
 
-export const updateSensor = (sensor) => {
-  SensorStore.sensorList = [...sensor]
-}
+export const updateSensor = sensor => {
+    SensorStore.sensorList = [...sensor];
+};
 export default SensorStore;
-
-// subscribe(SensorStore, () => {
-//   console.log(SensorStore.sensorList)
-// })
