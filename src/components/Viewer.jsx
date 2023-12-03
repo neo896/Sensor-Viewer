@@ -44,14 +44,16 @@ const Viewer = () => {
             计算: button(get => {
                 let sensor = get('传感器');
                 let rer = get('参考点');
-                let tfRes = sensorMatrix[rer].clone().invert().multiply(sensorMatrix[sensor]);
-                let p = new THREE.Vector3();
-                let q = new THREE.Quaternion();
-                let s = new THREE.Vector3();
-                tfRes.decompose(p, q, s);
-                set({
-                    transform: `Translation\nx: ${p.x} y: ${p.y} z: ${p.z}\n\nQuaternion\nx: ${q.x} y: ${q.y} z: ${q.z} w: ${q.w}`,
-                });
+                if (sensor && ref) {
+                    let tfRes = sensorMatrix[rer].clone().invert().multiply(sensorMatrix[sensor]);
+                    let p = new THREE.Vector3();
+                    let q = new THREE.Quaternion();
+                    let s = new THREE.Vector3();
+                    tfRes.decompose(p, q, s);
+                    set({
+                        transform: `Translation\nx: ${p.x} y: ${p.y} z: ${p.z}\n\nQuaternion\nx: ${q.x} y: ${q.y} z: ${q.z} w: ${q.w}`,
+                    });
+                }
             }),
             transform: {
                 value: '',
