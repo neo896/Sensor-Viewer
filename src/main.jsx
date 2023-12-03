@@ -10,10 +10,11 @@ import { window } from '@tauri-apps/api';
 import { confirm, save, message } from '@tauri-apps/api/dialog';
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
+import { register } from '@tauri-apps/api/globalShortcut';
 
 import './styles.scss';
 
-listen('save_yaml', async event => {
+const saveYaml = async () => {
     const filePath = await save({
         filters: [
             {
@@ -25,6 +26,14 @@ listen('save_yaml', async event => {
     invoke('save_yaml', { file_path: filePath }).catch(err =>
         message('无数据可保存', { title: 'Sensor-Viewer', type: 'warning' })
     );
+};
+
+listen('save_yaml', event => {
+    saveYaml();
+});
+
+register('Shift+Control+S', () => {
+    saveYaml();
 });
 
 window.getCurrent().listen('tauri://close-requested', async function (event) {

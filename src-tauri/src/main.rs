@@ -97,7 +97,7 @@ fn read_yaml(yaml_path: String) -> String {
 }
 
 fn main() {
-    let save_as: CustomMenuItem = CustomMenuItem::new("save_as".to_string(), "另存为...");
+    let save_as: CustomMenuItem = CustomMenuItem::new("save_as".to_string(), "另存为...\t\tShift Ctrl S");
     let file_menu = Submenu::new("文件", Menu::new().add_item(save_as));
     let menu = Menu::new().add_submenu(file_menu);
 

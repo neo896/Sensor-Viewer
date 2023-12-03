@@ -1,68 +1,71 @@
 {
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist"
-  },
-  "package": {
-    "productName": "Sensor-Viewer",
-    "version": "0.1.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      },
-      "window": {
-        "all": false,
-        "center": true,
-        "close": true
-      },
-      "dialog": {
-        "all": false, 
-        "ask": true, 
-        "confirm": true,
-        "message": true,
-        "open": true, 
-        "save": true 
-      },
-      "fs": {
-        "all": false,
-        "readDir": true,
-        "readFile": true,
-        "scope": ["**"]
-      },
-      "path": {
-        "all": true
-      }
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist"
     },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "com.neo",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
+    "package": {
+        "productName": "Sensor-Viewer",
+        "version": "0.1.0"
     },
-    "security": {
-      "csp": null
-    },
-    "windows": [
-      { 
-        "center": true,
-        "fullscreen": false,
-        "resizable": true,
-        "title": "Sensor-Viewer",
-        "width": 1920,
-        "height": 1080
-      }
-    ]
-  }
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "shell": {
+                "all": false,
+                "open": true
+            },
+            "globalShortcut": {
+                "all": true
+            },
+            "window": {
+                "all": false,
+                "center": true,
+                "close": true
+            },
+            "dialog": {
+                "all": false,
+                "ask": true,
+                "confirm": true,
+                "message": true,
+                "open": true,
+                "save": true
+            },
+            "fs": {
+                "all": false,
+                "readDir": true,
+                "readFile": true,
+                "scope": ["**"]
+            },
+            "path": {
+                "all": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "com.neo",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ]
+        },
+        "security": {
+            "csp": null
+        },
+        "windows": [
+            {
+                "center": true,
+                "fullscreen": false,
+                "resizable": true,
+                "title": "Sensor-Viewer",
+                "width": 1920,
+                "height": 1080
+            }
+        ]
+    }
 }
