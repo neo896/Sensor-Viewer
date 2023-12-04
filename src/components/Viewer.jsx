@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { OrbitControls, GizmoHelper, GizmoViewport, Html } from '@react-three/drei';
+import { OrbitControls, GizmoHelper, GizmoViewport, Html, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useControls, button } from 'leva';
 import { useSnapshot } from 'valtio';
 import SensorStore from '../store/SensorStore';
 import { findPathToTarget } from '../utils/findPathToTarget';
+import toast, { Toaster } from 'react-hot-toast';
+import { findDangling } from '../utils/handleDampling';
 
 const basicMesh = (
     <>
@@ -33,6 +35,14 @@ const Viewer = () => {
     const [sensorViewer, setSensorViwer] = useState([]);
     const [sensorMatrix, setSensorMatrix] = useState({});
 
+    const sensorShowError = sensor => {
+        const danglingList = sensor.toString();
+        toast.error(`${danglingList}无法预览，请检查参考点是否匹配正确`, {
+            position: 'top-right',
+            duration: 6000,
+        });
+    };
+
     const [{ tf }, set] = useControls(
         () => ({
             传感器: {
@@ -41,7 +51,7 @@ const Viewer = () => {
             参考点: {
                 options: Object.keys(sensorMatrix),
             },
-            计算: button(get => {
+            查询: button(get => {
                 let sensor = get('传感器');
                 let rer = get('参考点');
                 if (sensor && ref) {
@@ -64,6 +74,11 @@ const Viewer = () => {
     );
 
     useEffect(() => {
+        const danglingList = findDangling(sensorList);
+        if (danglingList.length > 0) {
+            sensorShowError(danglingList);
+        }
+
         const chassisMatrix = chassisRef.current.matrix;
         let sensorViewerMatrix = {};
         let newM4;
@@ -136,6 +151,9 @@ const Viewer = () => {
 
     return (
         <>
+            <Html>
+                <Toaster />
+            </Html>
             <OrbitControls makeDefault />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                 <GizmoViewport rotation={new THREE.Euler(0, 0, Math.PI / 2)} />
