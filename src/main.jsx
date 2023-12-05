@@ -31,9 +31,9 @@ const saveYaml = async () => {
     );
 };
 
-listen('save_yaml', event => {
-    saveYaml();
-});
+// listen('save_yaml', event => {
+//     saveYaml();
+// });
 
 register('Shift+Control+S', () => {
     saveYaml();

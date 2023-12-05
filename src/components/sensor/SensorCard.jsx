@@ -6,7 +6,7 @@ import {
     ProFormSelect,
     ProFormText,
 } from '@ant-design/pro-components';
-import { Radio } from 'antd';
+import { Radio, FloatButton } from 'antd';
 import toast, { Toaster } from 'react-hot-toast';
 import { updateSensor } from '../../store/SensorStore';
 import { findDangling } from '../../utils/handleDampling';
@@ -393,6 +393,7 @@ const SensorCard = () => {
                     />
                 </ProFormList>
             </ProForm>
+            <FloatButton type="primary" onClick={() => console.log('onClick')} />
         </>
     );
 };
