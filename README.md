@@ -20,13 +20,25 @@
 -   [nodejs](https://nodejs.org/en)
 -   [tauri](https://tauri.app/v1/guides/getting-started/prerequisites)
 
-2. 克隆源码
+1. 克隆源码
 
 ```bash
 git clone https://github.com/neo896/Sensor-Viewer.git
 ```
 
-3. 打包
+2. 安装依赖
+
+```bash
+npm install
+```
+
+3. 运行
+
+```bash
+npm run tauri dev
+```
+
+4. 构建
 
 ```bash
 npm run tauri build

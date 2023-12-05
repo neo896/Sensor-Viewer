@@ -7,7 +7,7 @@
     },
     "package": {
         "productName": "Sensor-Viewer",
-        "version": "0.1.0"
+        "version": "0.3.0"
     },
     "tauri": {
         "allowlist": {
@@ -36,6 +36,7 @@
                 "all": false,
                 "readDir": true,
                 "readFile": true,
+                "writeFile": true,
                 "scope": ["**"]
             },
             "path": {

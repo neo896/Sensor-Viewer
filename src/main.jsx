@@ -23,7 +23,10 @@ const saveYaml = async () => {
             },
         ],
     });
-    invoke('save_yaml', { file_path: filePath }).catch(err =>
+
+    const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
+
+    invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
         message('无数据可保存', { title: 'Sensor-Viewer', type: 'warning' })
     );
 };
@@ -52,7 +55,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <SensorTree />
         </div>
         <div className="h-screen flex-1 overflow-hidden bg-black my-0">
-            <Leva titleBar={{ title: 'transform查询', position: { x: -400, y: 30 } }} />
+            <Leva titleBar={{ title: '工具箱', position: { x: -400, y: 30 } }} />
             <Canvas camera={{ position: [0, 0, 0.5] }}>
                 <Viewer />
             </Canvas>
