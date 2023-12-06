@@ -1,8 +1,8 @@
 # Sensor-Viewer
 
-<em>A Lightweight, Fast, Cross-Platform Sensor Position Visualization Tool Based On Transforms</em>
-
 [中文](./README.zh_CN.md)
+
+<em>A Lightweight, Fast, Cross-Platform Sensor Position Visualization Tool Based On Transforms</em>
 
 ![screenshoot](./screenshot.jpg)
 
