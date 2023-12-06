@@ -7,9 +7,10 @@ import {
     SettingOutlined,
     ExportOutlined,
     TranslationOutlined,
-    QuestionCircleOutlined,
+    GithubOutlined,
 } from '@ant-design/icons';
 import { save, message } from '@tauri-apps/api/dialog';
+import { open } from '@tauri-apps/api/shell';
 
 const SensorTabs = () => {
     const { t, i18n } = useTranslation();
@@ -56,21 +57,22 @@ const SensorTabs = () => {
                 trigger="hover"
                 icon={<SettingOutlined />}
                 type="primary"
-                tooltip={<div>t('float_bt_settings')</div>}
+                tooltip={<div>{t('float_bt_settings')}</div>}
             >
                 <FloatButton
                     icon={<ExportOutlined />}
-                    tooltip={<div>t('float_bt_save_as')</div>}
+                    tooltip={<div>{t('float_bt_save_as')}</div>}
                     onClick={saveYaml}
                 />
                 <FloatButton
                     icon={<TranslationOutlined />}
-                    tooltip={<div>t('float_bt_switch_lan')</div>}
+                    tooltip={<div>{t('float_bt_switch_lan')}</div>}
                     onClick={changeLanguage}
                 />
                 <FloatButton
-                    icon={<QuestionCircleOutlined />}
-                    tooltip={<div>t('float_bt_switch_help')</div>}
+                    icon={<GithubOutlined />}
+                    tooltip={<div>{t('float_bt_github')}</div>}
+                    onClick={() => open('https://github.com/neo896/Sensor-Viewer/')}
                 />
             </FloatButton.Group>
         </>

@@ -9,7 +9,6 @@ use serde_json::Value;
 use maplit::hashmap;
 use std::fs::{self, File};
 
-
 #[derive(Serialize, Deserialize, Debug)]
 struct Transform {
     frame_id: String,
@@ -74,7 +73,6 @@ fn save_yaml(file_path: String) -> Result<(), String> {
             })
         }
     }   
-    // let transforms = Transforms {transforms};
     let file = File::create(file_path).unwrap();
     serde_yaml::to_writer(file, &transforms).unwrap();  
     Ok(())

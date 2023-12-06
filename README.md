@@ -1,44 +1,47 @@
 # Sensor-Viewer
 
+[中文](./README.zh_CN.md)
+
 ![screenshoot](./screenshot.jpg)
 
-## 功能
+## Feature
 
--   支持车载传感器的添加，编辑，检查，位置预览，隐藏/展示
--   支持任意传感器和参考点，进行 transform 查询
--   支持欧拉表达和四元数表达方式
--   支持传感器配置文件导入，导出
+-   Supports adding, editing, checking, position previewing, hiding/showing of in-vehicle sensors
+-   Support for arbitrary sensors and reference points for transform calculations
+-   Support for Eulerian rotations and quaternion expressions
+-   Support sensor configuration file import, export
+-   Support for GLTF model file export
 
-## 下载
+## Download
 
-### 通过[release](https://github.com/neo896/Sensor-Viewer/releases)直接下载
+### Download via [release](https://github.com/neo896/Sensor-Viewer/releases)
 
-### 从源码编译
+### Build from source
 
-1. 预置条件
+1. Prerequisites
 
 -   [nodejs](https://nodejs.org/en)
 -   [tauri](https://tauri.app/v1/guides/getting-started/prerequisites)
 
-1. 克隆源码
+1. Clone source code
 
 ```bash
 git clone https://github.com/neo896/Sensor-Viewer.git
 ```
 
-2. 安装依赖
+2. Installation dependencies
 
 ```bash
 npm install
 ```
 
-3. 运行
+3. Run
 
 ```bash
 npm run tauri dev
 ```
 
-4. 构建
+4. Build
 
 ```bash
 npm run tauri build
