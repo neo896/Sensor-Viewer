@@ -1,6 +1,6 @@
 # Sensor-Viewer
 
-<em>基于 Transforms 变换的轻量级、快速、跨平台传感器位置可视化工具</em>
+<center><em><b>基于 Transforms 变换的轻量级、快速、跨平台传感器位置可视化工具</b></em></center>
 
 ![screenshoot](./screenshot_zh.jpg)
 
