@@ -2,7 +2,7 @@
 
 [中文](./README.zh_CN.md)
 
-<center><em><b>A Lightweight, Fast, Cross-Platform Sensor Position Visualization Tool Based On Transforms</b></em></center>
+<em><b>A Lightweight, Fast, Cross-Platform Sensor Position Visualization Tool Based On Transforms</b></em>
 
 ![screenshoot](./screenshot.jpg)
 
