@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { OrbitControls, GizmoHelper, GizmoViewport, Html, Text } from '@react-three/drei';
+import { OrbitControls, GizmoHelper, GizmoViewport, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 import { useControls, button } from 'leva';
 import { useSnapshot } from 'valtio';
 import SensorStore from '../store/SensorStore';
 import { findPathToTarget } from '../utils/findPathToTarget';
-import toast, { Toaster } from 'react-hot-toast';
-import { findDangling } from '../utils/handleDampling';
 import { save } from '@tauri-apps/api/dialog';
 import { writeFile } from '@tauri-apps/api/fs';
+import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const basicMesh = (
     <>
@@ -39,6 +39,8 @@ const Viewer = () => {
     const [sensorViewer, setSensorViwer] = useState([]);
     const [sensorMatrix, setSensorMatrix] = useState({});
 
+    const { t, i18n } = useTranslation();
+
     const exportGLTF = async () => {
         const exporter = new GLTFExporter();
         exporter.parse(
@@ -66,29 +68,27 @@ const Viewer = () => {
         );
     };
 
-    const sensorShowError = sensor => {
-        const danglingList = sensor.toString();
-        toast.error(`${danglingList}无法预览，请检查参考点是否匹配正确`, {
-            position: 'top-right',
-            duration: 6000,
-        });
-    };
+    const sensorName = t('leva_sensor');
+    const refPoint = t('leva_ref');
+    const tfResult = t('leva_transform_result');
+    const tfCalculate = t('leva_transform_calculate');
+    const modelExport = t('leva_model_export');
 
     const [{ tf }, set] = useControls(
         () => ({
-            传感器: {
+            [sensorName]: {
                 options: Object.keys(sensorMatrix),
             },
-            参考点: {
+            [refPoint]: {
                 options: Object.keys(sensorMatrix),
             },
-            变换结果: {
+            [tfResult]: {
                 value: '',
                 editable: false,
             },
-            变换查询: button(get => {
-                let sensor = get('传感器');
-                let ref = get('参考点');
+            [tfCalculate]: button(get => {
+                let sensor = get([sensorName]);
+                let ref = get([refPoint]);
                 if (sensor && ref) {
                     let tfRes = sensorMatrix[ref].clone().invert().multiply(sensorMatrix[sensor]);
                     let p = new THREE.Vector3();
@@ -96,23 +96,18 @@ const Viewer = () => {
                     let s = new THREE.Vector3();
                     tfRes.decompose(p, q, s);
                     set({
-                        变换结果: `Translation\nx: ${p.x} y: ${p.y} z: ${p.z}\n\nQuaternion\nx: ${q.x} y: ${q.y} z: ${q.z} w: ${q.w}`,
+                        [tfResult]: `Translation\nx: ${p.x} y: ${p.y} z: ${p.z}\n\nQuaternion\nx: ${q.x} y: ${q.y} z: ${q.z} w: ${q.w}`,
                     });
                 }
             }),
-            模型导出: button(() => {
+            [modelExport]: button(() => {
                 exportGLTF();
             }),
         }),
-        [sensorMatrix]
+        [sensorMatrix, sensorName]
     );
 
     useEffect(() => {
-        const danglingList = findDangling(sensorList);
-        if (danglingList.length > 0) {
-            sensorShowError(danglingList);
-        }
-
         const chassisMatrix = chassisRef.current.matrix;
         let sensorViewerMatrix = {};
         let newM4;
@@ -185,9 +180,6 @@ const Viewer = () => {
 
     return (
         <>
-            <Html>
-                <Toaster />
-            </Html>
             <OrbitControls makeDefault />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                 <GizmoViewport rotation={new THREE.Euler(0, 0, Math.PI / 2)} />
@@ -220,4 +212,4 @@ const Viewer = () => {
     );
 };
 
-export default Viewer;
+export default withTranslation()(Viewer);

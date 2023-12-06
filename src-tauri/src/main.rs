@@ -5,8 +5,6 @@ use lazy_static::lazy_static;
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 use std::sync::Mutex;
-use tauri::Manager;
-use tauri::{CustomMenuItem, Menu, Submenu};
 use serde_json::Value;
 use maplit::hashmap;
 use std::fs::{self, File};
@@ -97,24 +95,7 @@ fn read_yaml(yaml_path: String) -> String {
 }
 
 fn main() {
-    // let save_as: CustomMenuItem = CustomMenuItem::new("save_as".to_string(), "另存为...\t\tShift Ctrl S");
-    // let file_menu = Submenu::new("文件", Menu::new().add_item(save_as));
-    // let menu = Menu::new().add_submenu(file_menu);
-
     tauri::Builder::default()
-        // .setup(|app| {
-        //     let handle = app.handle();
-        //     app.get_window("main").unwrap().on_menu_event(move |event| {
-        //         match event.menu_item_id() {
-        //             "save_as" => {
-        //                 handle.emit_all("save_yaml", ()).unwrap();
-        //             }
-        //             _ => {}
-        //         }
-        //     });
-        //     Ok(())
-        // })
-        // .menu(menu)
         .invoke_handler(tauri::generate_handler![save_sensor_state, save_yaml, read_yaml])
         .run(tauri::generate_context!())
         .expect("failed to run app");

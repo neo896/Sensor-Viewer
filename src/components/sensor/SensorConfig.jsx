@@ -6,9 +6,12 @@ import { Button } from 'antd';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { updateSensor } from '../../store/SensorStore';
+import { findDangling } from '../../utils/handleDampling';
 import toast, { Toaster } from 'react-hot-toast';
 import yaml from 'js-yaml';
 import Ajv from 'ajv';
+import { withTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 const ajv = new Ajv();
 
@@ -123,6 +126,18 @@ const schemaQ = {
 
 const SensorConfig = () => {
     const [code, setCode] = useState('');
+    const danglingMsg = <Trans i18nKey="card_ref_error" />;
+    const yamlErrorMsg = <Trans i18nKey="yaml_error" />;
+    const yamlSchemaErrorMsg = <Trans i18nKey="yaml_schema_error" />;
+
+    const sensorShowError = sensor => {
+        const danglingList = sensor.toString();
+        toast.error(`${danglingList} ${danglingMsg}`, {
+            position: 'top-right',
+            duration: 6000,
+        });
+    };
+
     const openFile = async () => {
         const selected = await open({
             multiple: false,
@@ -165,15 +180,19 @@ const SensorConfig = () => {
                         }
                         sensors.push(tmp);
                     });
+                    const danglingList = findDangling(sensors);
+                    if (danglingList.length > 0) {
+                        sensorShowError(danglingList);
+                    }
                     updateSensor(sensors);
                 } else {
-                    toast.error('配置文件字段不符合格式要求', {
+                    toast.error(yamlSchemaErrorMsg, {
                         position: 'top-right',
                         duration: 6000,
                     });
                 }
             } catch (e) {
-                toast.error('配置文件不符合yaml语法', {
+                toast.error(yamlErrorMsg, {
                     position: 'top-right',
                     duration: 6000,
                 });
@@ -185,7 +204,7 @@ const SensorConfig = () => {
         <div className="flex flex-col">
             <Toaster />
             <Button className="mb-2" onClick={openFile}>
-                导入配置文件
+                <Trans i18nKey="btn_import_yaml" />
             </Button>
             <MacScrollbar className="h-96">
                 <SyntaxHighlighter language="yaml" style={docco}>
@@ -196,4 +215,4 @@ const SensorConfig = () => {
     );
 };
 
-export default SensorConfig;
+export default withTranslation()(SensorConfig);

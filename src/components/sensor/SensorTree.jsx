@@ -3,6 +3,8 @@ import { useSnapshot } from 'valtio';
 import SensorStore from '../../store/SensorStore';
 import { findDangling } from '../../utils/handleDampling';
 import { CameraSvg, LidarSvg, RadarSvg, IMUSvg } from '../svg/Sensor';
+import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const sensorIcon = {
     Camera: <CameraSvg />,
@@ -12,6 +14,8 @@ const sensorIcon = {
 };
 
 const SensorTree = () => {
+    const { t, i18n } = useTranslation();
+
     const { sensorList } = useSnapshot(SensorStore);
     let treeData = [];
     let keyIndex = [];
@@ -33,37 +37,37 @@ const SensorTree = () => {
         if (sensorList[0]['rotation_type'] == 'euler') {
             tmp['children'] = [
                 {
-                    title: `参考点: ${item.ref_point}`,
+                    title: `${t('card_ref_name')}: ${item.ref_point}`,
                     key: `0-${index}-0`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移x: ${item.x}`,
+                    title: `${t('card_x')}: ${item.x}`,
                     key: `0-${index}-1`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移y: ${item.y}`,
+                    title: `${t('card_y')}: ${item.y}`,
                     key: `0-${index}-2`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移z: ${item.z}`,
+                    title: `${t('card_z')}: ${item.z}`,
                     key: `0-${index}-3`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `yaw: ${item.yaw}`,
+                    title: `${t('card_yaw')}: ${item.yaw}`,
                     key: `0-${index}-4`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `pitch: ${item.pitch}`,
+                    title: `${t('card_pitch')}: ${item.pitch}`,
                     key: `0-${index}-5`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `roll: ${item.roll}`,
+                    title: `${t('card_roll')}: ${item.roll}`,
                     key: `0-${index}-6`,
                     disableCheckbox: true,
                 },
@@ -71,42 +75,42 @@ const SensorTree = () => {
         } else {
             tmp['children'] = [
                 {
-                    title: `参考点: ${item.ref_point}`,
+                    title: `${t('card_ref_name')}: ${item.ref_point}`,
                     key: `0-${index}-0`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移x: ${item.x}`,
+                    title: `${t('card_x')}: ${item.x}`,
                     key: `0-${index}-1`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移y: ${item.y}`,
+                    title: `${t('card_y')}: ${item.y}`,
                     key: `0-${index}-2`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `平移z: ${item.z}`,
+                    title: `${t('card_z')}: ${item.z}`,
                     key: `0-${index}-3`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `四元数x: ${item.q_x}`,
+                    title: `${t('card_q_x')}: ${item.q_x}`,
                     key: `0-${index}-4`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `四元数y: ${item.q_y}`,
+                    title: `${t('card_q_y')}: ${item.q_y}`,
                     key: `0-${index}-5`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `四元数z: ${item.q_z}`,
+                    title: `${t('card_q_z')}: ${item.q_z}`,
                     key: `0-${index}-6`,
                     disableCheckbox: true,
                 },
                 {
-                    title: `四元数w: ${item.q_w}`,
+                    title: `${t('card_q_w')}: ${item.q_w}`,
                     key: `0-${index}-7`,
                     disableCheckbox: true,
                 },
@@ -118,7 +122,7 @@ const SensorTree = () => {
 
     return (
         <div className="flex flex-col h-screen">
-            <div className="bg-gray-500 text-center text-lg mb-5">传感器列表</div>
+            <div className="bg-gray-500 text-center text-lg mb-5">{t('tree_sensor_list')}</div>
             {treeData.length > 0 && (
                 <Tree
                     showIcon
@@ -133,4 +137,4 @@ const SensorTree = () => {
     );
 };
 
-export default SensorTree;
+export default withTranslation()(SensorTree);

@@ -6,19 +6,26 @@ import {
     ProFormSelect,
     ProFormText,
 } from '@ant-design/pro-components';
-import { Radio, FloatButton } from 'antd';
+import { Radio } from 'antd';
+
 import toast, { Toaster } from 'react-hot-toast';
 import { updateSensor } from '../../store/SensorStore';
 import { findDangling } from '../../utils/handleDampling';
 import { invoke } from '@tauri-apps/api/tauri';
+import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 const SensorCard = () => {
     const [eulerDisplay, setEulerDisplay] = useState('');
     const [quaternionDisplay, setQuaternionDisplay] = useState('hidden');
 
+    const { t, i18n } = useTranslation();
+
     const sensorShowError = sensor => {
         const danglingList = sensor.toString();
-        toast.error(`${danglingList}无法预览，请检查参考点是否匹配正确`, {
+        const msg = t('card_ref_error');
+        toast.error(`${danglingList} ${msg}`, {
             position: 'top-right',
             duration: 6000,
         });
@@ -39,8 +46,8 @@ const SensorCard = () => {
             <Toaster />
             <div className="text-center mb-4">
                 <Radio.Group defaultValue={'euler'} onChange={handleChange}>
-                    <Radio value={'euler'}>欧拉</Radio>
-                    <Radio value={'quaternion'}>四元数</Radio>
+                    <Radio value={'euler'}>{t('card_euler')}</Radio>
+                    <Radio value={'quaternion'}>{t('card_quaternion')}</Radio>
                 </Radio.Group>
             </div>
 
@@ -62,7 +69,7 @@ const SensorCard = () => {
                 }}
                 submitter={{
                     searchConfig: {
-                        submitText: '保存',
+                        submitText: t('card_save'),
                     },
                     submitButtonProps: {
                         style: {
@@ -78,9 +85,9 @@ const SensorCard = () => {
             >
                 <ProFormList
                     name="attributes"
-                    label="传感器"
+                    label={t('card_sensor_lable')}
                     creatorButtonProps={{
-                        creatorButtonText: '添加传感器',
+                        creatorButtonText: t('card_create_sensor'),
                     }}
                     min={1}
                     itemRender={({ listDom, action }, { index }) => (
@@ -119,93 +126,107 @@ const SensorCard = () => {
                     ]}
                 >
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="name"
-                        label="传感器名称"
-                        rules={[{ required: true, message: '必填，请输入传感器名称' }]}
+                        placeholder=""
+                        label={t('card_sensor_name')}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_sensor_name_rule" /> },
+                        ]}
                     />
                     <ProFormSelect
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="sensor_type"
-                        label="传感器类型"
+                        placeholder=""
+                        label={t('card_sensor_type')}
                         options={['Camera', 'Lidar', 'Radar', 'IMU/GNSS']}
-                        rules={[{ required: true, message: '必填，请选择传感器类型' }]}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_sensor_type_rule" /> },
+                        ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="ref_point"
-                        label="参考点名称"
-                        rules={[{ required: true }]}
+                        label={t('card_ref_name')}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_ref_name_rule" /> },
+                        ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="x"
-                        label="平移x"
+                        placeholder=""
+                        label={t('card_x')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="y"
-                        label="平移y"
+                        placeholder=""
+                        label={t('card_y')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="z"
-                        label="平移z"
+                        placeholder=""
+                        label={t('card_z')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="yaw"
-                        label="yaw"
+                        placeholder=""
+                        label={t('card_yaw')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="pitch"
-                        label="pitch"
+                        placeholder=""
+                        label={t('card_pitch')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="roll"
-                        label="roll"
+                        placeholder=""
+                        label={t('card_roll')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
@@ -230,7 +251,7 @@ const SensorCard = () => {
                 }}
                 submitter={{
                     searchConfig: {
-                        submitText: '保存',
+                        submitText: t('card_save'),
                     },
                     submitButtonProps: {
                         style: {
@@ -246,9 +267,9 @@ const SensorCard = () => {
             >
                 <ProFormList
                     name="attributes"
-                    label="传感器"
+                    label={t('card_sensor_lable')}
                     creatorButtonProps={{
-                        creatorButtonText: '添加传感器',
+                        creatorButtonText: t('card_create_sensor'),
                     }}
                     min={1}
                     itemRender={({ listDom, action }, { index }) => (
@@ -289,113 +310,127 @@ const SensorCard = () => {
                     ]}
                 >
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="name"
-                        label="传感器名称"
-                        rules={[{ required: true, message: '必填，请输入传感器名称' }]}
+                        placeholder=""
+                        label={t('card_sensor_name')}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_sensor_name_rule" /> },
+                        ]}
                     />
                     <ProFormSelect
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="sensor_type"
-                        label="传感器类型"
-                        options={['Camera', 'Lidar', 'Radar', 'GNSS/IMU']}
-                        rules={[{ required: true, message: '必填，请选择传感器类型' }]}
+                        placeholder=""
+                        label={t('card_sensor_type')}
+                        options={['Camera', 'Lidar', 'Radar', 'IMU/GNSS']}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_sensor_type_rule" /> },
+                        ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="ref_point"
-                        label="参考点名称"
-                        rules={[{ required: true }]}
+                        label={t('card_ref_name')}
+                        rules={[
+                            { required: true, message: <Trans i18nKey="card_ref_name_rule" /> },
+                        ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="x"
-                        label="平移x"
+                        placeholder=""
+                        label={t('card_x')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="y"
-                        label="平移y"
+                        placeholder=""
+                        label={t('card_y')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="z"
-                        label="平移z"
+                        placeholder=""
+                        label={t('card_z')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="q_x"
-                        label="四元数x"
+                        placeholder=""
+                        label={t('card_q_x')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="q_y"
-                        label="四元数y"
+                        placeholder=""
+                        label={t('card_q_y')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="q_z"
-                        label="四元数z"
+                        placeholder=""
+                        label={t('card_q_z')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                     <ProFormText
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 9 }}
                         name="q_w"
-                        label="四元数w"
+                        placeholder=""
+                        label={t('card_q_w')}
                         rules={[
                             {
                                 required: true,
                                 pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
-                                message: '必填，且为数字类型',
+                                message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
                     />
                 </ProFormList>
             </ProForm>
-            <FloatButton type="primary" onClick={() => console.log('onClick')} />
         </>
     );
 };
 
-export default SensorCard;
+export default withTranslation()(SensorCard);
