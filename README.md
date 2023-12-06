@@ -6,11 +6,11 @@
 
 ## Feature
 
--   Supports adding, editing, checking, position previewing, hiding/showing of in-vehicle sensors
--   Support for arbitrary sensors and reference points for transform calculations
--   Support for Eulerian rotations and quaternion expressions
--   Support sensor configuration file import, export
--   Support for GLTF model file export
+-   Supports adding, editing, checking, location preview, hiding/showing of vehicle sensors
+-   Support any sensor and reference point for transform calculation
+-   Support Euler and quaternion rotation methods
+-   Supports sensor configuration file import and export
+-   Support GLTF model file export
 
 ## Download
 
