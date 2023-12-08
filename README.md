@@ -15,6 +15,8 @@
 
 <h3>English | <a href='./README.zh_CN.md'>中文</a></h3>
 
+</div>
+
 ![screenshoot](./screenshot.jpg)
 
 ## Feature
