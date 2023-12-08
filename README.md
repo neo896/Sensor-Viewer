@@ -1,13 +1,19 @@
+<img width="200px" src="public/icon.png" align="left"/>
+
 # Sensor-Viewer
 
-<h3>English | <a href='./README.zh_CN.md'>中文</a></h3>
-
-<em><b>A Light, Fast, Cross-Platform Sensor Extrinsic Parameters Visualization Tool</b></em>
+> A Light, Fast, Cross-Platform Sensor Extrinsic Parameters Visualization Tool
 
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
 ![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
+
+<br/>
+<hr/>
+<div align="center">
+
+<h3>English | <a href='./README.zh_CN.md'>中文</a></h3>
 
 ![screenshoot](./screenshot.jpg)
 

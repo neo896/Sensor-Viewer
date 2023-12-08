@@ -1,6 +1,8 @@
+<img width="200px" src="public/icon.png" align="left"/>
+
 # Sensor-Viewer
 
-<em><b>轻便、快速、跨平台的传感器外参可视化工具</b></em>
+> 轻便、快速、跨平台的传感器外参可视化工具
 
 ![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
