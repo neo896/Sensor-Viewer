@@ -1,6 +1,6 @@
 # Sensor-Viewer
 
-<h3>English | <a href='(./README.zh_CN.md'>中文</a></h3>
+<h3>English | <a href='./README.zh_CN.md'>中文</a></h3>
 
 <em><b>A Light, Fast, Cross-Platform Sensor Extrinsic Parameters Visualization Tool</b></em>
 
