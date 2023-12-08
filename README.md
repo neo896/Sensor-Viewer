@@ -1,8 +1,13 @@
 # Sensor-Viewer
 
-[中文](./README.zh_CN.md)
+<h3>English | <a href='(./README.zh_CN.md'>中文</a></h3>
 
-<em><b>A Light, Fast, Cross-Platform Sensor Position Visualization Tool Based On Transforms</b></em>
+<em><b>A Light, Fast, Cross-Platform Sensor Extrinsic Parameters Visualization Tool</b></em>
+
+![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
+![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
+![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
 
 ![screenshoot](./screenshot.jpg)
 

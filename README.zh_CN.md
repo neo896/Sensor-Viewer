@@ -1,6 +1,11 @@
 # Sensor-Viewer
 
-<em><b>基于 Transforms 变换的轻量级、快速、跨平台传感器位置可视化工具</b></em>
+<em><b>轻便、快速、跨平台的传感器外参可视化工具</b></em>
+
+![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
+![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
+![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
 
 ![screenshoot](./screenshot_zh.jpg)
 
