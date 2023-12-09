@@ -87,9 +87,9 @@ fn save_sensor_state(sensor_list: String, rotation_type: String) -> () {
 }
 
 #[tauri::command(rename_all = "snake_case")]
-fn read_yaml(yaml_path: String) -> String {
-    let f_string = fs::read_to_string(yaml_path).unwrap();
-    f_string
+fn read_yaml(yaml_path: String) -> Result<String, ()> {
+    let f_string = fs::read_to_string(yaml_path).map_err(|_| ())?;
+    Ok(f_string)
 }
 
 fn main() {
