@@ -4,7 +4,7 @@
 
 > 轻便、快速、跨平台的传感器外参可视化工具
 
-![Rust](https://img.shields.io/badge/-Rust-orange?logo=rust&logoColor=white)
+![Tauri](https://img.shields.io/badge/Tauri-1.7.3-blue?logo=tauri)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
 ![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)
