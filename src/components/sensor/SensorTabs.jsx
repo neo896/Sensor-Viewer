@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import { save, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/shell';
+import Pcd from './Pcd';
 
 const SensorTabs = () => {
     const { t, i18n } = useTranslation();
@@ -47,6 +48,11 @@ const SensorTabs = () => {
             key: '2',
             label: t('tabs_config'),
             children: <SensorConfig />,
+        },
+        {
+            key: '3',
+            label: t('tabs_pcd'),
+            children: <Pcd />,
         },
     ];
 

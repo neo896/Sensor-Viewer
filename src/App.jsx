@@ -9,10 +9,10 @@ import { withTranslation } from 'react-i18next';
 const App = () => {
     return (
         <div className="flex">
-            <div className="h-screen w-1/6 my-0">
+            <div className="w-1/6">
                 <SensorTree />
             </div>
-            <div className="h-screen flex-1 overflow-hidden bg-black my-0">
+            <div className="flex-1 bg-black">
                 <Leva
                     titleBar={{
                         title: <Trans i18nKey="leva_toolbox" />,
@@ -23,7 +23,7 @@ const App = () => {
                     <Viewer />
                 </Canvas>
             </div>
-            <div className="h-screen w-1/4 bg-gray-300 my-0">
+            <div className="w-1/4 bg-gray-200">
                 <Panel />
             </div>
         </div>

@@ -122,11 +122,10 @@ const SensorTree = () => {
 
     return (
         <div className="flex flex-col h-screen">
-            <div className="bg-gray-500 text-center text-lg mb-5">{t('tree_sensor_list')}</div>
+            <div className="bg-gray-400 text-center text-lg mb-5">{t('tree_sensor_list')}</div>
             {treeData.length > 0 && (
                 <Tree
                     showIcon
-                    defaultExpandAll
                     defaultCheckedKeys={keyIndex}
                     showLine
                     treeData={treeData}

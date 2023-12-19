@@ -7,7 +7,7 @@ import { Trans } from 'react-i18next';
 const Panel = () => {
     return (
         <div className="flex flex-col h-screen">
-            <div className="bg-gray-500 text-center text-lg mb-5">
+            <div className="bg-gray-400 text-center text-lg mb-5">
                 <Trans i18nKey="panel_sensor_config" />
             </div>
             <MacScrollbar className="h-full">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { OrbitControls, GizmoHelper, GizmoViewport, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
@@ -10,6 +10,8 @@ import { save } from '@tauri-apps/api/dialog';
 import { writeFile } from '@tauri-apps/api/fs';
 import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
+import { useLoader } from '@react-three/fiber';
+import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader';
 
 const basicMesh = (
     <>
@@ -31,13 +33,15 @@ const basicMesh = (
 );
 
 const Viewer = () => {
-    const { sensorList } = useSnapshot(SensorStore);
+    const { sensorList, pcdList } = useSnapshot(SensorStore);
 
     const parentGroupRef = useRef();
     const meshRefs = useRef({});
     const chassisRef = useRef();
     const [sensorViewer, setSensorViwer] = useState([]);
     const [sensorMatrix, setSensorMatrix] = useState({});
+
+    const [pcdView, setPcdView] = useState([]);
 
     const { t, i18n } = useTranslation();
 
@@ -178,8 +182,27 @@ const Viewer = () => {
         }
     }, [sensorList]);
 
+    useEffect(() => {
+        let pcdViewTmp = [];
+        for (let i = 0; i < pcdList.length; i++) {
+            const pcd = useLoader(PCDLoader, pcdList[i].path);
+            const pcdMatrix = sensorMatrix[pcdList[i].name];
+            pcdViewTmp.push(
+                <primitive
+                    object={pcd}
+                    scale={[0.1, 0.1, 0.1]}
+                    matrixAutoUpdate={false}
+                    matrix={pcdMatrix}
+                    key={i}
+                />
+            );
+        }
+        setPcdView(pcdViewTmp);
+    }, [pcdList]);
+
     return (
         <>
+            {pcdView.map(item => item)}
             <OrbitControls makeDefault />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                 <GizmoViewport rotation={new THREE.Euler(0, 0, Math.PI / 2)} />

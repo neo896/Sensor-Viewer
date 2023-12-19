@@ -1,43 +1,45 @@
 {
-    "name": "sensor-viewer",
-    "private": true,
-    "version": "0.1.0",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "tauri": "tauri"
-    },
-    "dependencies": {
-        "@ant-design/icons": "^5.2.6",
-        "@ant-design/pro-components": "^2.6.35",
-        "@react-three/drei": "^9.88.12",
-        "@react-three/fiber": "^8.15.12",
-        "@tauri-apps/api": "^1.5.1",
-        "@types/three": "^0.158.3",
-        "ajv": "^8.12.0",
-        "antd": "^5.11.1",
-        "file-saver": "^2.0.5",
-        "i18next": "^23.7.7",
-        "js-yaml": "^4.1.0",
-        "leva": "^0.9.35",
-        "mac-scrollbar": "^0.12.3",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-hot-toast": "^2.4.1",
-        "react-i18next": "^13.5.0",
-        "react-syntax-highlighter": "^15.5.0",
-        "three": "^0.158.0",
-        "valtio": "^1.12.0"
-    },
-    "devDependencies": {
-        "@tauri-apps/cli": "^1.5.6",
-        "@vitejs/plugin-react": "^4.0.3",
-        "autoprefixer": "^10.4.16",
-        "postcss": "^8.4.31",
-        "sass": "^1.69.5",
-        "tailwindcss": "^3.3.5",
-        "vite": "^4.4.4"
-    }
+  "name": "sensor-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.35",
+    "@react-three/drei": "^9.88.12",
+    "@react-three/fiber": "^8.15.12",
+    "@tauri-apps/api": "^1.5.1",
+    "@types/three": "^0.158.3",
+    "@types/uuid": "^9.0.7",
+    "ajv": "^8.12.0",
+    "antd": "^5.11.1",
+    "file-saver": "^2.0.5",
+    "i18next": "^23.7.7",
+    "js-yaml": "^4.1.0",
+    "leva": "^0.9.35",
+    "mac-scrollbar": "^0.12.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-i18next": "^13.5.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "three": "^0.158.0",
+    "uuid": "^9.0.1",
+    "valtio": "^1.12.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.6",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.5",
+    "vite": "^4.4.4"
+  }
 }

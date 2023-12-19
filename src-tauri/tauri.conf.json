@@ -12,6 +12,11 @@
     "tauri": {
         "allowlist": {
             "all": false,
+            "protocol": {
+                "all": false,
+                "asset": true,
+                "assetScope": ["**"]
+              },
             "shell": {
                 "all": false,
                 "open": true
@@ -37,7 +42,7 @@
                 "readDir": true,
                 "readFile": true,
                 "writeFile": true,
-                "scope": ["**"]
+                "scope": ["**", "**/*"]
             },
             "path": {
                 "all": true
@@ -56,7 +61,7 @@
             ]
         },
         "security": {
-            "csp": null
+            "csp": "default-src 'self'; media-src 'self' asset: https://asset.localhost;"
         },
         "windows": [
             {
