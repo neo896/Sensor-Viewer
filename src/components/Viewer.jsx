@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { OrbitControls, GizmoHelper, GizmoViewport, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
@@ -182,17 +182,17 @@ const Viewer = () => {
         }
     }, [sensorList]);
 
-    useEffect(() => {
+    useMemo(() => {
         let pcdViewTmp = [];
         for (let i = 0; i < pcdList.length; i++) {
             const pcd = useLoader(PCDLoader, pcdList[i].path);
-            const pcdMatrix = sensorMatrix[pcdList[i].name];
+            const pcdM4 = sensorMatrix[pcdList[i].name];
             pcdViewTmp.push(
                 <primitive
                     object={pcd}
                     scale={[0.1, 0.1, 0.1]}
                     matrixAutoUpdate={false}
-                    matrix={pcdMatrix}
+                    matrix={pcdM4}
                     key={i}
                 />
             );
@@ -202,7 +202,8 @@ const Viewer = () => {
 
     return (
         <>
-            {pcdView.map(item => item)}
+            <Suspense fallback={null}>{pcdView.map(item => item)}</Suspense>
+
             <OrbitControls makeDefault />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                 <GizmoViewport rotation={new THREE.Euler(0, 0, Math.PI / 2)} />

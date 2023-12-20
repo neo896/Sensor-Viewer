@@ -29,8 +29,9 @@
         "float_bt_save_as": "Save As/Shift+Ctr+S",
         "float_bt_switch_lan": "Language Switch",
         "float_bt_github": "Github",
-        "tabs_manual": "Add Sensor Manually",
+        "tabs_manual": "Config Extrinsic Parameters",
         "tabs_config": "Import Configuration File",
+        "tabs_pcd": "Config Pcd",
         "panel_sensor_config": "Sensor Configuration",
         "yaml_error": "Configuration file does not conform to yaml syntax",
         "yaml_schema_error": "Configuration file fields do not meet format requirements",
@@ -44,6 +45,11 @@
         "globle_empty_data": "No data to save",
         "globle_close_info": "Is the sensor configuration saved? If not, click Save As to save the configuration.",
         "globle_close_yes": "Yes",
-        "globle_close_no": "No"
+        "globle_close_no": "No",
+        "pcd_choose": "pcd",
+        "color_choose": "color",
+        "add_pcd": "Add Pcd",
+        "show_pcd": "Show",
+        "reset_pcd": "Reset"
     }
 }

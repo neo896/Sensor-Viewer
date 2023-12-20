@@ -6,7 +6,7 @@ import {
     ProFormSelect,
     ProFormText,
 } from '@ant-design/pro-components';
-import { Radio } from 'antd';
+import { Button, Radio } from 'antd';
 
 import toast, { Toaster } from 'react-hot-toast';
 import { updateSensor } from '../../store/SensorStore';
@@ -49,6 +49,7 @@ const SensorCard = () => {
                     <Radio value={'euler'}>{t('card_euler')}</Radio>
                     <Radio value={'quaternion'}>{t('card_quaternion')}</Radio>
                 </Radio.Group>
+                <Button>{t('btn_import_yaml')}</Button>
             </div>
 
             <ProForm

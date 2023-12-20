@@ -7,6 +7,8 @@ import { EyeTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import { useSnapshot } from 'valtio';
 import SensorStore, { updatePcd } from '../../store/SensorStore';
 import { v4 as uuidv4 } from 'uuid';
+import { withTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -62,7 +64,7 @@ const Pcd = () => {
 
     const columns = [
         {
-            title: '传感器名称',
+            title: <Trans i18nKey="card_sensor_name" />,
             dataIndex: 'pcdName',
             render: (text, record, index) => (
                 <Select
@@ -79,7 +81,7 @@ const Pcd = () => {
             ),
         },
         {
-            title: '点云选择',
+            title: <Trans i18nKey="pcd_choose" />,
             dataIndex: 'pcdSelect',
             render: (text, record, index) => (
                 <Select className="w-full" showSearch onChange={value => selectPcd(value, record)}>
@@ -92,7 +94,7 @@ const Pcd = () => {
             ),
         },
         {
-            title: '颜色选择',
+            title: <Trans i18nKey="color_choose" />,
             dataIndex: 'colorSelect',
             width: 90,
             fixed: 'right',
@@ -156,13 +158,13 @@ const Pcd = () => {
         <>
             <div className="flex justify-end mb-2">
                 <Button type="primary" onClick={selectPcdPath}>
-                    添加点云
+                    <Trans i18nKey="add_pcd" />
                 </Button>
                 <Button icon={<EyeTwoTone />} onClick={() => updatePcd(pcdViewer)}>
-                    展示
+                    <Trans i18nKey="show_pcd" />
                 </Button>
                 <Button icon={<DeleteTwoTone />} onClick={reset}>
-                    重置
+                    <Trans i18nKey="reset_pcd" />
                 </Button>
             </div>
             <Table
@@ -174,4 +176,4 @@ const Pcd = () => {
         </>
     );
 };
-export default Pcd;
+export default withTranslation()(Pcd);
