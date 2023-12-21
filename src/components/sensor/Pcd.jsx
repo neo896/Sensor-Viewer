@@ -152,6 +152,7 @@ const Pcd = () => {
     const reset = () => {
         setPcdViewer([]);
         setPcdTableData([]);
+        updatePcd([]);
     };
 
     return (

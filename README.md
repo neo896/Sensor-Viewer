@@ -4,7 +4,7 @@
 
 > A Light, Fast, Cross-Platform Sensor Extrinsic Parameters Visualization Tool
 
-![Tauri](https://img.shields.io/badge/Tauri-1.7.3-blue?logo=tauri)
+![Tauri](https://img.shields.io/badge/Tauri-1.5.2-blue?logo=tauri)
 ![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows&logoColor=white)
 ![MacOS](https://img.shields.io/badge/-macOS-black?&logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-yellow?logo=linux&logoColor=white)

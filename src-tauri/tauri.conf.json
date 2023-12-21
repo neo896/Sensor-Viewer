@@ -42,7 +42,9 @@
                 "readDir": true,
                 "readFile": true,
                 "writeFile": true,
-                "scope": ["**", "**/*"]
+                "scope": {
+                    "allow": ["**", "**/*"]
+                }
             },
             "path": {
                 "all": true
@@ -61,7 +63,7 @@
             ]
         },
         "security": {
-            "csp": "default-src 'self'; media-src 'self' asset: https://asset.localhost;"
+            "csp": null
         },
         "windows": [
             {
