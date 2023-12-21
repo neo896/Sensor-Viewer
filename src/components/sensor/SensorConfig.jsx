@@ -201,16 +201,11 @@ const SensorConfig = () => {
     };
 
     return (
-        <div className="flex flex-col">
+        <div>
             <Toaster />
-            <Button className="mb-2" onClick={openFile}>
+            <Button onClick={openFile}>
                 <Trans i18nKey="btn_import_yaml" />
             </Button>
-            <MacScrollbar className="h-96">
-                <SyntaxHighlighter language="yaml" style={docco}>
-                    {code}
-                </SyntaxHighlighter>
-            </MacScrollbar>
         </div>
     );
 };

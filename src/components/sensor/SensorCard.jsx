@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
     ProCard,
     ProForm,
@@ -9,16 +9,21 @@ import {
 import { Button, Radio } from 'antd';
 
 import toast, { Toaster } from 'react-hot-toast';
-import { updateSensor } from '../../store/SensorStore';
+import SensorStore, { updateSensor } from '../../store/SensorStore';
+import { useSnapshot } from 'valtio';
 import { findDangling } from '../../utils/handleDampling';
 import { invoke } from '@tauri-apps/api/tauri';
 import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
+import SensorConfig from './SensorConfig';
 
 const SensorCard = () => {
     const [eulerDisplay, setEulerDisplay] = useState('');
     const [quaternionDisplay, setQuaternionDisplay] = useState('hidden');
+
+    const { sensorList } = useSnapshot(SensorStore);
+    const formRef = useRef();
 
     const { t, i18n } = useTranslation();
 
@@ -41,32 +46,37 @@ const SensorCard = () => {
         }
     };
 
+    useEffect(() => {
+        console.log(formRef);
+    }, [sensorList]);
+
     return (
         <>
             <Toaster />
-            <div className="text-center mb-4">
+            <div className="flex justify-center items-center mb-4">
                 <Radio.Group defaultValue={'euler'} onChange={handleChange}>
                     <Radio value={'euler'}>{t('card_euler')}</Radio>
                     <Radio value={'quaternion'}>{t('card_quaternion')}</Radio>
                 </Radio.Group>
-                <Button>{t('btn_import_yaml')}</Button>
+                <SensorConfig />
             </div>
 
             <ProForm
+                formRef={formRef}
                 className={eulerDisplay}
                 layout="horizontal"
                 onFinish={async values => {
                     let sensorList = values.attributes;
                     sensorList[0]['rotation_type'] = 'euler';
                     updateSensor(sensorList);
-                    invoke('save_sensor_state', {
-                        sensor_list: JSON.stringify(values.attributes),
-                        rotation_type: 'euler',
-                    });
                     const danglingList = findDangling(sensorList);
                     if (danglingList.length > 0) {
                         sensorShowError(danglingList);
                     }
+                    invoke('save_sensor_state', {
+                        sensor_list: JSON.stringify(values.attributes),
+                        rotation_type: 'euler',
+                    });
                 }}
                 submitter={{
                     searchConfig: {

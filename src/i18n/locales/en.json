@@ -30,7 +30,6 @@
         "float_bt_switch_lan": "Language Switch",
         "float_bt_github": "Github",
         "tabs_manual": "Config Extrinsic Parameters",
-        "tabs_config": "Import Configuration File",
         "tabs_pcd": "Config Pcd",
         "panel_sensor_config": "Sensor Configuration",
         "yaml_error": "Configuration file does not conform to yaml syntax",

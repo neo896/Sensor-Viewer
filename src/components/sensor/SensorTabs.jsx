@@ -45,11 +45,6 @@ const SensorTabs = () => {
             children: <SensorCard />,
         },
         {
-            key: '2',
-            label: t('tabs_config'),
-            children: <SensorConfig />,
-        },
-        {
             key: '3',
             label: t('tabs_pcd'),
             children: <Pcd />,

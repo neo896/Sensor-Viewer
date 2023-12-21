@@ -28,7 +28,6 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-i18next": "^13.5.0",
-    "react-syntax-highlighter": "^15.5.0",
     "three": "^0.158.0",
     "uuid": "^9.0.1",
     "valtio": "^1.12.0"

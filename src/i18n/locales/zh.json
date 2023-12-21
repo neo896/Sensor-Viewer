@@ -30,7 +30,6 @@
         "float_bt_switch_lan": "语言切换",
         "float_bt_github": "Github",
         "tabs_manual": "手动添加外参",
-        "tabs_config": "导入外参配置文件",
         "tabs_pcd": "点云配置",
         "panel_sensor_config": "传感器配置",
         "yaml_error": "配置文件不符合 yaml 语法",
