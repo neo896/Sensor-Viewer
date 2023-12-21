@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { open } from '@tauri-apps/api/dialog';
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
-import { Button, Select, Table, ColorPicker } from 'antd';
+import { Button, Select, Table, ColorPicker, Space } from 'antd';
 import { EyeTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import { useSnapshot } from 'valtio';
 import SensorStore, { updatePcd } from '../../store/SensorStore';
@@ -12,7 +12,7 @@ import { Trans } from 'react-i18next';
 
 const { Option } = Select;
 
-const Pcd = () => {
+const PcdConfig = () => {
     const { sensorList } = useSnapshot(SensorStore);
     const [pcdViewer, setPcdViewer] = useState([]);
     const [pcdTableData, setPcdTableData] = useState([]);
@@ -158,15 +158,17 @@ const Pcd = () => {
     return (
         <>
             <div className="flex justify-end mb-2">
-                <Button type="primary" onClick={selectPcdPath}>
-                    <Trans i18nKey="add_pcd" />
-                </Button>
-                <Button icon={<EyeTwoTone />} onClick={() => updatePcd(pcdViewer)}>
-                    <Trans i18nKey="show_pcd" />
-                </Button>
-                <Button icon={<DeleteTwoTone />} onClick={reset}>
-                    <Trans i18nKey="reset_pcd" />
-                </Button>
+                <Space>
+                    <Button type="primary" onClick={selectPcdPath}>
+                        <Trans i18nKey="add_pcd" />
+                    </Button>
+                    <Button icon={<EyeTwoTone />} onClick={() => updatePcd(pcdViewer)}>
+                        <Trans i18nKey="show_pcd" />
+                    </Button>
+                    <Button icon={<DeleteTwoTone />} onClick={reset}>
+                        <Trans i18nKey="reset_pcd" />
+                    </Button>
+                </Space>
             </div>
             <Table
                 // rowSelection={rowSelection}
@@ -177,4 +179,4 @@ const Pcd = () => {
         </>
     );
 };
-export default withTranslation()(Pcd);
+export default withTranslation()(PcdConfig);

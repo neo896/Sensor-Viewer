@@ -6,7 +6,7 @@ import {
     ProFormSelect,
     ProFormText,
 } from '@ant-design/pro-components';
-import { Button, Radio } from 'antd';
+import { Radio } from 'antd';
 
 import toast, { Toaster } from 'react-hot-toast';
 import SensorStore, { updateSensor } from '../../store/SensorStore';
@@ -23,7 +23,9 @@ const SensorCard = () => {
     const [quaternionDisplay, setQuaternionDisplay] = useState('hidden');
 
     const { sensorList } = useSnapshot(SensorStore);
-    const formRef = useRef();
+
+    const eulerFormRef = useRef();
+    const quaternionFormRef = useRef();
 
     const { t, i18n } = useTranslation();
 
@@ -47,7 +49,13 @@ const SensorCard = () => {
     };
 
     useEffect(() => {
-        console.log(formRef);
+        if (sensorList.length > 0) {
+            if (sensorList[0].hasOwnProperty('yaw')) {
+                eulerFormRef.current.setFieldsValue({ eulerAttributes: sensorList });
+            } else if (sensorList[0].hasOwnProperty('q_x')) {
+                quaternionFormRef.current.setFieldsValue({ quaternionAttributes: sensorList });
+            }
+        }
     }, [sensorList]);
 
     return (
@@ -62,7 +70,7 @@ const SensorCard = () => {
             </div>
 
             <ProForm
-                formRef={formRef}
+                formRef={eulerFormRef}
                 className={eulerDisplay}
                 layout="horizontal"
                 onFinish={async values => {
@@ -95,7 +103,7 @@ const SensorCard = () => {
                 }}
             >
                 <ProFormList
-                    name="attributes"
+                    name="eulerAttributes"
                     label={t('card_sensor_lable')}
                     creatorButtonProps={{
                         creatorButtonText: t('card_create_sensor'),
@@ -245,6 +253,7 @@ const SensorCard = () => {
             </ProForm>
 
             <ProForm
+                formRef={quaternionFormRef}
                 className={quaternionDisplay}
                 layout="horizontal"
                 onFinish={async values => {
@@ -277,7 +286,7 @@ const SensorCard = () => {
                 }}
             >
                 <ProFormList
-                    name="attributes"
+                    name="quaternionAttributes"
                     label={t('card_sensor_lable')}
                     creatorButtonProps={{
                         creatorButtonText: t('card_create_sensor'),

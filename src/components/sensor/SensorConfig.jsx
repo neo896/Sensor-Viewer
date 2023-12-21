@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { MacScrollbar } from 'mac-scrollbar';
 import { Button } from 'antd';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
@@ -125,7 +121,6 @@ const schemaQ = {
 };
 
 const SensorConfig = () => {
-    const [code, setCode] = useState('');
     const danglingMsg = <Trans i18nKey="card_ref_error" />;
     const yamlErrorMsg = <Trans i18nKey="yaml_error" />;
     const yamlSchemaErrorMsg = <Trans i18nKey="yaml_schema_error" />;
@@ -149,7 +144,6 @@ const SensorConfig = () => {
             ],
         });
         invoke('read_yaml', { yaml_path: String(selected) }).then(v => {
-            setCode(v);
             try {
                 const data = yaml.load(v);
                 const validateE = ajv.compile(schemaE);

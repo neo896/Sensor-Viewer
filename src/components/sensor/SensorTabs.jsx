@@ -1,6 +1,5 @@
 import { Tabs, FloatButton } from 'antd';
 import SensorCard from './SensorCard';
-import SensorConfig from './SensorConfig';
 import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import {
@@ -11,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import { save, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/shell';
-import Pcd from './Pcd';
+import PcdConfig from './PcdConfig';
 
 const SensorTabs = () => {
     const { t, i18n } = useTranslation();
@@ -45,9 +44,9 @@ const SensorTabs = () => {
             children: <SensorCard />,
         },
         {
-            key: '3',
+            key: '2',
             label: t('tabs_pcd'),
-            children: <Pcd />,
+            children: <PcdConfig />,
         },
     ];
 

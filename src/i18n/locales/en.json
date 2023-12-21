@@ -34,7 +34,7 @@
         "panel_sensor_config": "Sensor Configuration",
         "yaml_error": "Configuration file does not conform to yaml syntax",
         "yaml_schema_error": "Configuration file fields do not meet format requirements",
-        "btn_import_yaml": "Import Yaml",
+        "btn_import_yaml": "One-Click Import Yaml",
         "leva_sensor": "Sensor",
         "leva_ref": "Ref Point",
         "leva_transform_result": "TF Result",
