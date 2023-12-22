@@ -55,7 +55,7 @@ const PcdConfig = () => {
     const selectColor = (v, record) => {
         const newState = pcdViewer.map(obj => {
             if (obj.key === record['key']) {
-                return { ...obj, color: v.toHexString() };
+                return { ...obj, color: v.toRgbString() };
             }
             return obj;
         });

@@ -191,12 +191,14 @@ const Viewer = () => {
         let pcdViewTmp = [];
         for (let i = 0; i < pcdList.length; i++) {
             const pcd = useLoader(PCDLoader, pcdList[i].path);
+            const material = new THREE.MeshBasicMaterial({ color: pcdList[i].color });
             const pcdM4 = sensorMatrix[pcdList[i].name];
             pcdViewTmp.push(
                 <primitive
                     object={pcd}
                     scale={[0.1, 0.1, 0.1]}
                     matrixAutoUpdate={false}
+                    material={material}
                     matrix={pcdM4}
                     key={i}
                 />
