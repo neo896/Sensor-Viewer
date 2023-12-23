@@ -3,7 +3,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { Button, Select, Table, ColorPicker, Space } from 'antd';
-import { EyeTwoTone, DeleteTwoTone } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import { useSnapshot } from 'valtio';
 import SensorStore, { updatePcd } from '../../store/SensorStore';
 import { v4 as uuidv4 } from 'uuid';
@@ -62,9 +62,14 @@ const PcdConfig = () => {
         setPcdViewer(newState);
     };
 
+    const removePcd = id => {
+        const a = pcdTableData.filter(item => item.id !== id);
+        setPcdTableData(pcdTableData.filter(item => item.key !== id));
+    };
+
     const columns = [
         {
-            title: <Trans i18nKey="card_sensor_name" />,
+            title: <Trans i18nKey="name" />,
             dataIndex: 'pcdName',
             render: (text, record, index) => (
                 <Select
@@ -96,12 +101,24 @@ const PcdConfig = () => {
         {
             title: <Trans i18nKey="color_choose" />,
             dataIndex: 'colorSelect',
-            width: 90,
-            fixed: 'right',
+            width: 70,
             render: (text, record, index) => (
                 <ColorPicker
                     defaultValue={'#FFFFFF'}
                     onChangeComplete={value => selectColor(value, record)}
+                />
+            ),
+        },
+        {
+            title: <Trans i18nKey="action" />,
+            dataIndex: 'colorSelect',
+            width: 90,
+            fixed: 'right',
+            render: (text, record, index) => (
+                <Button
+                    type="text"
+                    icon={<CloseOutlined style={{ color: 'red' }} />}
+                    onClick={() => removePcd(record.key)}
                 />
             ),
         },
@@ -143,12 +160,6 @@ const PcdConfig = () => {
         }
     };
 
-    // const rowSelection = {
-    //     onChange: (selectedRowKeys, selectedRows) => {
-    //         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    //     },
-    // };
-
     const reset = () => {
         setPcdViewer([]);
         setPcdTableData([]);
@@ -162,19 +173,19 @@ const PcdConfig = () => {
                     <Button type="primary" onClick={selectPcdPath}>
                         <Trans i18nKey="add_pcd" />
                     </Button>
-                    <Button icon={<EyeTwoTone />} onClick={() => updatePcd(pcdViewer)}>
+                    <Button onClick={() => updatePcd(pcdViewer)}>
                         <Trans i18nKey="show_pcd" />
                     </Button>
-                    <Button icon={<DeleteTwoTone />} onClick={reset}>
+                    <Button onClick={reset}>
                         <Trans i18nKey="reset_pcd" />
                     </Button>
                 </Space>
             </div>
             <Table
-                // rowSelection={rowSelection}
                 columns={columns}
                 dataSource={pcdTableData}
-                scroll={{ x: 130 }}
+                scroll={{ x: 130, y: 600 }}
+                pagination={false}
             />
         </>
     );

@@ -45,8 +45,10 @@
         "globle_close_info": "Is the sensor configuration saved? If not, click Save As to save the configuration.",
         "globle_close_yes": "Yes",
         "globle_close_no": "No",
-        "pcd_choose": "pcd",
-        "color_choose": "color",
+        "name": "Name",
+        "pcd_choose": "Pcd",
+        "color_choose": "Color",
+        "action": "Action",
         "add_pcd": "Add Pcd",
         "show_pcd": "Show",
         "reset_pcd": "Reset"

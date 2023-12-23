@@ -45,8 +45,10 @@
         "globle_close_info": "传感器配置是否保存？如未保存，请点击另存为进行配置保存",
         "globle_close_yes": "是",
         "globle_close_no": "否",
+        "name": "点云名称",
         "pcd_choose": "点云选择",
         "color_choose": "颜色选择",
+        "action": "操作",
         "add_pcd": "添加点云",
         "show_pcd": "展示",
         "reset_pcd": "重置"
