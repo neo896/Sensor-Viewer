@@ -189,8 +189,15 @@ const Viewer = () => {
 
     useMemo(() => {
         let pcdViewTmp = [];
+        let pcdErrorList = [];
         for (let i = 0; i < pcdList.length; i++) {
-            const pcd = useLoader(PCDLoader, pcdList[i].path);
+            let pcd;
+            try {
+                pcd = useLoader(PCDLoader, pcdList[i].path);
+            } catch (error) {
+                pcdErrorList.push(i + 1);
+                continue;
+            }
             const material = new THREE.MeshBasicMaterial({ color: pcdList[i].color });
             const pcdM4 = sensorMatrix[pcdList[i].name];
             pcdViewTmp.push(
@@ -203,8 +210,12 @@ const Viewer = () => {
                     key={i}
                 />
             );
+            setPcdView(pcdViewTmp);
         }
-        setPcdView(pcdViewTmp);
+        if (pcdErrorList.length > 0) {
+            const pcdErrorInfo = t('pcd_load_error') + pcdErrorList.toString();
+            alert(pcdErrorInfo);
+        }
     }, [pcdList]);
 
     return (

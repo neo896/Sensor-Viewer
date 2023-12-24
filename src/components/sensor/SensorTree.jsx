@@ -7,10 +7,10 @@ import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 
 const sensorIcon = {
-    Camera: <CameraSvg />,
-    Lidar: <LidarSvg />,
-    Radar: <RadarSvg />,
-    'IMU/GNSS': <IMUSvg />,
+    camera: <CameraSvg />,
+    lidar: <LidarSvg />,
+    radar: <RadarSvg />,
+    imu: <IMUSvg />,
 };
 
 const SensorTree = () => {

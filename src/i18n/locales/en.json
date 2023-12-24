@@ -3,7 +3,7 @@
         "leva_toolbox": "Toolbox",
         "card_ref_error": "Unable to preview, please check if the reference point is matched correctly",
         "card_save_yaml_error": "No data to save",
-        "card_euler": "Euler",
+        "card_euler": "Euler(XYZ)",
         "card_quaternion": "Quaternion",
         "card_save": "save",
         "card_sensor_lable": "Sensors",
@@ -25,8 +25,9 @@
         "card_q_z": "quaternion z",
         "card_q_w": "quaternion w",
         "card_create_sensor": "Create Sensor",
-        "float_bt_settings": "Settings",
-        "float_bt_save_as": "Save As/Shift+Ctr+S",
+        "float_bt_links": "Help&Links",
+        "float_bt_doc": "Docs",
+        "float_bt_vedio": "Video",
         "float_bt_switch_lan": "Language Switch",
         "float_bt_github": "Github",
         "tabs_manual": "Config Extrinsic Parameters",
@@ -34,7 +35,8 @@
         "panel_sensor_config": "Sensor Configuration",
         "yaml_error": "Configuration file does not conform to yaml syntax",
         "yaml_schema_error": "Configuration file fields do not meet format requirements",
-        "btn_import_yaml": "One-Click Import Yaml",
+        "btn_import_yaml": "One-Click Import Configuration",
+        "btn_export_yaml": "One-Click Export Configuration(Shift+Ctr+S)",
         "leva_sensor": "Sensor",
         "leva_ref": "Ref Point",
         "leva_transform_result": "TF Result",
@@ -51,6 +53,7 @@
         "action": "Action",
         "add_pcd": "Add Pcd",
         "show_pcd": "Show",
-        "reset_pcd": "Reset"
+        "reset_pcd": "Reset",
+        "pcd_load_error": "Please check if the PCD file is correct, the error file line is "
     }
 }

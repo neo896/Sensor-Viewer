@@ -3,35 +3,17 @@ import SensorCard from './SensorCard';
 import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import {
-    SettingOutlined,
-    ExportOutlined,
+    QuestionCircleOutlined,
+    ReadOutlined,
+    YoutubeOutlined,
     TranslationOutlined,
     GithubOutlined,
 } from '@ant-design/icons';
-import { save, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/shell';
 import PcdConfig from './PcdConfig';
 
 const SensorTabs = () => {
     const { t, i18n } = useTranslation();
-
-    const saveYaml = async () => {
-        const filePath = await save({
-            filters: [
-                {
-                    name: 'Yaml',
-                    extensions: ['yaml'],
-                },
-            ],
-        });
-
-        const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
-
-        const msg = t('card_save_yaml_error');
-        invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
-            message(msg, { title: 'Sensor-Viewer', type: 'warning' })
-        );
-    };
 
     const changeLanguage = () => {
         i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en');
@@ -53,21 +35,31 @@ const SensorTabs = () => {
     return (
         <>
             <Tabs defaultActiveKey="1" items={items} centered />
+            <FloatButton
+                style={{ right: 94 }}
+                icon={<TranslationOutlined />}
+                tooltip={<div>{t('float_bt_switch_lan')}</div>}
+                onClick={changeLanguage}
+            />
             <FloatButton.Group
                 trigger="hover"
-                icon={<SettingOutlined />}
+                icon={<QuestionCircleOutlined />}
                 type="primary"
-                tooltip={<div>{t('float_bt_settings')}</div>}
+                tooltip={<div>{t('float_bt_links')}</div>}
             >
                 <FloatButton
-                    icon={<ExportOutlined />}
-                    tooltip={<div>{t('float_bt_save_as')}</div>}
-                    onClick={saveYaml}
+                    icon={<ReadOutlined />}
+                    tooltip={<div>{t('float_bt_doc')}</div>}
+                    onClick={() => open('https://neo896.github.io/Sensor-Viewer-Doc')}
                 />
                 <FloatButton
-                    icon={<TranslationOutlined />}
-                    tooltip={<div>{t('float_bt_switch_lan')}</div>}
-                    onClick={changeLanguage}
+                    icon={<YoutubeOutlined />}
+                    tooltip={<div>{t('float_bt_vedio')}</div>}
+                    onClick={() =>
+                        open(
+                            'https://www.bilibili.com/video/BV1vC4y1F7iQ/?vd_source=f768335decb84d12fd31da8d3a1fc160'
+                        )
+                    }
                 />
                 <FloatButton
                     icon={<GithubOutlined />}

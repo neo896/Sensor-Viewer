@@ -1,5 +1,6 @@
-import { Button } from 'antd';
-import { open } from '@tauri-apps/api/dialog';
+import { Button, Tooltip } from 'antd';
+import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
+import { open, save, message } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { updateSensor } from '../../store/SensorStore';
 import { findDangling } from '../../utils/handleDampling';
@@ -7,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import yaml from 'js-yaml';
 import Ajv from 'ajv';
 import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
 
 const ajv = new Ajv();
@@ -121,6 +123,7 @@ const schemaQ = {
 };
 
 const SensorConfig = () => {
+    const { t, i18n } = useTranslation();
     const danglingMsg = <Trans i18nKey="card_ref_error" />;
     const yamlErrorMsg = <Trans i18nKey="yaml_error" />;
     const yamlSchemaErrorMsg = <Trans i18nKey="yaml_schema_error" />;
@@ -194,12 +197,33 @@ const SensorConfig = () => {
         });
     };
 
+    const saveYaml = async () => {
+        const filePath = await save({
+            filters: [
+                {
+                    name: 'Yaml',
+                    extensions: ['yaml'],
+                },
+            ],
+        });
+
+        const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
+
+        const msg = t('card_save_yaml_error');
+        invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
+            message(msg, { title: 'Sensor-Viewer', type: 'warning' })
+        );
+    };
+
     return (
         <div>
             <Toaster />
-            <Button onClick={openFile}>
-                <Trans i18nKey="btn_import_yaml" />
-            </Button>
+            <Tooltip title={<Trans i18nKey="btn_import_yaml" />}>
+                <Button type="text" onClick={openFile} icon={<LoginOutlined />}></Button>
+            </Tooltip>
+            <Tooltip title={<Trans i18nKey="btn_export_yaml" />}>
+                <Button type="text" onClick={saveYaml} icon={<LogoutOutlined />}></Button>
+            </Tooltip>
         </div>
     );
 };

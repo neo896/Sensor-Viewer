@@ -3,7 +3,7 @@
         "leva_toolbox": "工具箱",
         "card_ref_error": "无法预览，请检查参考点是否匹配正确",
         "card_save_yaml_error": "无数据可保存",
-        "card_euler": "欧拉",
+        "card_euler": "欧拉(XYZ)",
         "card_quaternion": "四元数",
         "card_save": "保存",
         "card_sensor_lable": "传感器",
@@ -25,8 +25,9 @@
         "card_q_z": "四元数z",
         "card_q_w": "四元数w",
         "card_create_sensor": "添加传感器",
-        "float_bt_settings": "设置",
-        "float_bt_save_as": "另存为/Shift+Ctr+S",
+        "float_bt_links": "帮助&链接",
+        "float_bt_doc": "文档",
+        "float_bt_vedio": "视频",
         "float_bt_switch_lan": "语言切换",
         "float_bt_github": "Github",
         "tabs_manual": "外参配置",
@@ -34,7 +35,8 @@
         "panel_sensor_config": "传感器配置",
         "yaml_error": "配置文件不符合 yaml 语法",
         "yaml_schema_error": "配置文件字段不符合格式要求",
-        "btn_import_yaml": "一键导入Yaml",
+        "btn_import_yaml": "一键导入配置",
+        "btn_export_yaml": "一键导出配置(Shift+Ctr+S)",
         "leva_sensor": "传感器",
         "leva_ref": "参考点",
         "leva_transform_result": "TF结果",
@@ -51,6 +53,7 @@
         "action": "操作",
         "add_pcd": "添加点云",
         "show_pcd": "展示",
-        "reset_pcd": "重置"
+        "reset_pcd": "重置",
+        "pcd_load_error": "请检查pcd文件是否正确，错误文件行数为 "
     }
 }

@@ -41,14 +41,14 @@ fn save_yaml(file_path: String) -> Result<(), String> {
                 sensor_type: item["sensor_type"].as_str().unwrap().to_string(),
                 transform: hashmap! {
                     "translation".to_string() => hashmap! {
-                        "x".to_string() => item["x"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "y".to_string() => item["y"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "z".to_string() => item["z"].as_str().unwrap().parse::<f64>().unwrap(),
+                        "x".to_string() => item["x"].as_f64().unwrap(),
+                        "y".to_string() => item["y"].as_f64().unwrap(),
+                        "z".to_string() => item["z"].as_f64().unwrap(),
                      },
                      "rotation".to_string() => hashmap! {
-                        "yaw".to_string() => item["yaw"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "pitch".to_string() => item["pitch"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "roll".to_string() => item["roll"].as_str().unwrap().parse::<f64>().unwrap(),
+                        "yaw".to_string() => item["yaw"].as_f64().unwrap(),
+                        "pitch".to_string() => item["pitch"].as_f64().unwrap(),
+                        "roll".to_string() => item["roll"].as_f64().unwrap(),
                      },
                 }
             })
@@ -59,15 +59,15 @@ fn save_yaml(file_path: String) -> Result<(), String> {
                 sensor_type: item["sensor_type"].as_str().unwrap().to_string(),
                 transform: hashmap! {
                     "translation".to_string() => hashmap! {
-                        "x".to_string() => item["x"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "y".to_string() => item["y"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "z".to_string() => item["z"].as_str().unwrap().parse::<f64>().unwrap(),
+                        "x".to_string() => item["x"].as_f64().unwrap(),
+                        "y".to_string() => item["y"].as_f64().unwrap(),
+                        "z".to_string() => item["z"].as_f64().unwrap(),
                      },
                      "rotation".to_string() => hashmap! {
-                        "q_x".to_string() => item["q_x"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "q_y".to_string() => item["q_y"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "q_z".to_string() => item["q_z"].as_str().unwrap().parse::<f64>().unwrap(),
-                        "q_w".to_string() => item["q_w"].as_str().unwrap().parse::<f64>().unwrap(),
+                        "q_x".to_string() => item["q_x"].as_f64().unwrap(),
+                        "q_y".to_string() => item["q_y"].as_f64().unwrap(),
+                        "q_z".to_string() => item["q_z"].as_f64().unwrap(),
+                        "q_w".to_string() => item["q_w"].as_f64().unwrap(),
                      },
                 }
             })

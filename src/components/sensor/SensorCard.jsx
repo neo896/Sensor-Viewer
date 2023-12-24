@@ -74,7 +74,7 @@ const SensorCard = () => {
                 className={eulerDisplay}
                 layout="horizontal"
                 onFinish={async values => {
-                    let sensorList = values.attributes;
+                    let sensorList = values.eulerAttributes;
                     sensorList[0]['rotation_type'] = 'euler';
                     updateSensor(sensorList);
                     const danglingList = findDangling(sensorList);
@@ -82,7 +82,7 @@ const SensorCard = () => {
                         sensorShowError(danglingList);
                     }
                     invoke('save_sensor_state', {
-                        sensor_list: JSON.stringify(values.attributes),
+                        sensor_list: JSON.stringify(values.eulerAttributes),
                         rotation_type: 'euler',
                     });
                 }}
@@ -158,7 +158,7 @@ const SensorCard = () => {
                         name="sensor_type"
                         placeholder=""
                         label={t('card_sensor_type')}
-                        options={['Camera', 'Lidar', 'Radar', 'IMU/GNSS']}
+                        options={['camera', 'lidar', 'radar', 'imu']}
                         rules={[
                             { required: true, message: <Trans i18nKey="card_sensor_type_rule" /> },
                         ]}
@@ -179,7 +179,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -192,7 +192,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -205,7 +205,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -218,7 +218,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -231,7 +231,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -244,7 +244,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -257,11 +257,11 @@ const SensorCard = () => {
                 className={quaternionDisplay}
                 layout="horizontal"
                 onFinish={async values => {
-                    let sensorList = values.attributes;
+                    let sensorList = values.quaternionAttributes;
                     sensorList[0]['rotation_type'] = 'quaternion';
                     updateSensor(sensorList);
                     invoke('save_sensor_state', {
-                        sensor_list: JSON.stringify(values.attributes),
+                        sensor_list: JSON.stringify(values.quaternionAttributes),
                         rotation_type: 'quaternion',
                     });
                     const danglingList = findDangling(sensorList);
@@ -343,7 +343,7 @@ const SensorCard = () => {
                         name="sensor_type"
                         placeholder=""
                         label={t('card_sensor_type')}
-                        options={['Camera', 'Lidar', 'Radar', 'IMU/GNSS']}
+                        options={['camera', 'lidar', 'radar', 'imu']}
                         rules={[
                             { required: true, message: <Trans i18nKey="card_sensor_type_rule" /> },
                         ]}
@@ -364,7 +364,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -377,7 +377,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -390,7 +390,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -403,7 +403,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -416,7 +416,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -429,7 +429,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
@@ -442,7 +442,7 @@ const SensorCard = () => {
                         rules={[
                             {
                                 required: true,
-                                pattern: '[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?',
+                                pattern: /[+-]?(?:0|[1-9]d*)(?:.d*)?(?:[eE][+-]?d+)?/,
                                 message: <Trans i18nKey="card_numeric_rule" />,
                             },
                         ]}
