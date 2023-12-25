@@ -207,12 +207,16 @@ const SensorConfig = () => {
             ],
         });
 
-        const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
+        if (filePath) {
+            const fileNameWithExtension = filePath.endsWith('.yaml')
+                ? filePath
+                : `${filePath}.yaml`;
 
-        const msg = t('card_save_yaml_error');
-        invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
-            message(msg, { title: 'Sensor-Viewer', type: 'warning' })
-        );
+            const msg = t('card_save_yaml_error');
+            invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
+                message(msg, { title: 'Sensor-Viewer', type: 'warning' })
+            );
+        }
     };
 
     return (

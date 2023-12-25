@@ -31,11 +31,13 @@ register('Shift+Control+S', async () => {
         ],
     });
 
-    const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
+    if (filePath) {
+        const fileNameWithExtension = filePath.endsWith('.yaml') ? filePath : `${filePath}.yaml`;
 
-    invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
-        message(emptyData, { title: 'Sensor-Viewer', type: 'warning' })
-    );
+        invoke('save_yaml', { file_path: fileNameWithExtension }).catch(err =>
+            message(emptyData, { title: 'Sensor-Viewer', type: 'warning' })
+        );
+    }
 });
 
 window.getCurrent().listen('tauri://close-requested', async function (event) {
