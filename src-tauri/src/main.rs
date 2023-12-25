@@ -95,8 +95,7 @@ fn read_yaml(yaml_path: String) -> Result<String, ()> {
 
 #[tauri::command(rename_all = "snake_case")]
 fn check_pcd(pcd_path: String) -> Result<(), ()> {
-    println!("{:?}", pcd_path);
-    let _ = DynReader::open(pcd_path).map_err(|_| false);
+    let _ = DynReader::open(pcd_path).map_err(|_| ())?;
     Ok(())
 }
 

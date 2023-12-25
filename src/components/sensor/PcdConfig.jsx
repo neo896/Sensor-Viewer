@@ -3,6 +3,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { invoke } from '@tauri-apps/api/tauri';
+import { message } from '@tauri-apps/api/dialog';
 import { Button, Select, Table, ColorPicker, Space } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { useSnapshot } from 'valtio';
@@ -18,15 +19,14 @@ const PcdConfig = () => {
     const [pcdViewer, setPcdViewer] = useState([]);
     const [pcdTableData, setPcdTableData] = useState([]);
     const [pcdList, setPcdList] = useState({});
-    const [show, setShow] = useState(false);
 
     let sensors = [];
     sensorList.map(item => {
         sensors.push(item.name);
     });
 
-    const selectPcd = (v, record) => {
-        const newState = pcdViewer.map(obj => {
+    const selectPcd = async (v, record) => {
+        const promises = pcdViewer.map(async obj => {
             if (obj.key === record['key']) {
                 let pcdPath = '';
                 if (obj.path_.includes('/')) {
@@ -34,22 +34,21 @@ const PcdConfig = () => {
                 } else {
                     pcdPath = [obj.path_, v].join('\\');
                 }
-                invoke('check_pcd', { pcd_path: pcdPath })
+                return invoke('check_pcd', { pcd_path: pcdPath })
                     .then(() => {
-                        console.log('xxx');
                         pcdPath = convertFileSrc(pcdPath);
                         return { ...obj, path: pcdPath };
                     })
-                    .catch(err => {
-                        console.log('xxx');
-                        setShow(false);
+                    .catch(() => {
                         message('pcd wrong', { title: 'Sensor-Viewer', type: 'error' });
-                        return null;
+                        return obj;
                     });
             }
 
-            return obj;
+            return Promise.resolve(obj);
         });
+
+        const newState = await Promise.all(promises);
         setPcdViewer(newState);
     };
 
@@ -141,7 +140,7 @@ const PcdConfig = () => {
             multiple: true,
             directory: true,
         });
-        if (folderPath.length > 0) {
+        if (folderPath) {
             let dataTmp = [];
             let pcdViewerTmp = [];
             let pcd = {};
@@ -185,7 +184,7 @@ const PcdConfig = () => {
                     <Button type="primary" onClick={selectPcdPath}>
                         <Trans i18nKey="add_pcd" />
                     </Button>
-                    <Button onClick={() => updatePcd(pcdViewer)} disabled={show}>
+                    <Button onClick={() => updatePcd(pcdViewer)}>
                         <Trans i18nKey="show_pcd" />
                     </Button>
                     <Button onClick={reset}>
