@@ -2,12 +2,13 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use lazy_static::lazy_static;
-use serde::{Serialize, Deserialize};
-use std::collections::HashMap;
-use std::sync::Mutex;
-use serde_json::Value;
 use maplit::hashmap;
+use pcd_rs::DynReader;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 use std::fs::{self, File};
+use std::sync::Mutex;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Transform {
@@ -19,9 +20,8 @@ struct Transform {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Transforms {
-   transforms: Vec<Transform>,
+    transforms: Vec<Transform>,
 }
-
 
 lazy_static! {
     static ref SENSORS: Mutex<String> = Mutex::new(String::from(""));
@@ -30,12 +30,13 @@ lazy_static! {
 
 #[tauri::command(rename_all = "snake_case")]
 fn save_yaml(file_path: String) -> Result<(), String> {
-    let sensors: Value = serde_json::from_str(SENSORS.lock().unwrap().as_str()).map_err(|err| err.to_string())?;
+    let sensors: Value =
+        serde_json::from_str(SENSORS.lock().unwrap().as_str()).map_err(|err| err.to_string())?;
     let rotation_type = ROTATION_TYPE.lock().unwrap();
     let mut transforms = vec![];
     for item in sensors.as_array().unwrap() {
         if *rotation_type == String::from("euler") {
-            transforms.push(Transform{
+            transforms.push(Transform {
                 frame_id: item["name"].as_str().unwrap().to_string(),
                 reference_frame_id: item["ref_point"].as_str().unwrap().to_string(),
                 sensor_type: item["sensor_type"].as_str().unwrap().to_string(),
@@ -50,10 +51,10 @@ fn save_yaml(file_path: String) -> Result<(), String> {
                         "pitch".to_string() => item["pitch"].as_f64().unwrap(),
                         "roll".to_string() => item["roll"].as_f64().unwrap(),
                      },
-                }
+                },
             })
         } else if *rotation_type == String::from("quaternion") {
-            transforms.push(Transform{
+            transforms.push(Transform {
                 frame_id: item["name"].as_str().unwrap().to_string(),
                 reference_frame_id: item["ref_point"].as_str().unwrap().to_string(),
                 sensor_type: item["sensor_type"].as_str().unwrap().to_string(),
@@ -69,12 +70,12 @@ fn save_yaml(file_path: String) -> Result<(), String> {
                         "q_z".to_string() => item["q_z"].as_f64().unwrap(),
                         "q_w".to_string() => item["q_w"].as_f64().unwrap(),
                      },
-                }
+                },
             })
         }
-    }   
+    }
     let file = File::create(file_path).unwrap();
-    serde_yaml::to_writer(file, &transforms).unwrap();  
+    serde_yaml::to_writer(file, &transforms).unwrap();
     Ok(())
 }
 
@@ -92,9 +93,21 @@ fn read_yaml(yaml_path: String) -> Result<String, ()> {
     Ok(f_string)
 }
 
+#[tauri::command(rename_all = "snake_case")]
+fn check_pcd(pcd_path: String) -> Result<(), ()> {
+    println!("{:?}", pcd_path);
+    let _ = DynReader::open(pcd_path).map_err(|_| false);
+    Ok(())
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![save_sensor_state, save_yaml, read_yaml])
+        .invoke_handler(tauri::generate_handler![
+            save_sensor_state,
+            save_yaml,
+            read_yaml,
+            check_pcd
+        ])
         .run(tauri::generate_context!())
         .expect("failed to run app");
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { open } from '@tauri-apps/api/dialog';
 import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/tauri';
 import { Button, Select, Table, ColorPicker, Space } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { useSnapshot } from 'valtio';
@@ -17,6 +18,7 @@ const PcdConfig = () => {
     const [pcdViewer, setPcdViewer] = useState([]);
     const [pcdTableData, setPcdTableData] = useState([]);
     const [pcdList, setPcdList] = useState({});
+    const [show, setShow] = useState(false);
 
     let sensors = [];
     sensorList.map(item => {
@@ -32,8 +34,18 @@ const PcdConfig = () => {
                 } else {
                     pcdPath = [obj.path_, v].join('\\');
                 }
-                pcdPath = convertFileSrc(pcdPath);
-                return { ...obj, path: pcdPath };
+                invoke('check_pcd', { pcd_path: pcdPath })
+                    .then(() => {
+                        console.log('xxx');
+                        pcdPath = convertFileSrc(pcdPath);
+                        return { ...obj, path: pcdPath };
+                    })
+                    .catch(err => {
+                        console.log('xxx');
+                        setShow(false);
+                        message('pcd wrong', { title: 'Sensor-Viewer', type: 'error' });
+                        return null;
+                    });
             }
 
             return obj;
@@ -173,7 +185,7 @@ const PcdConfig = () => {
                     <Button type="primary" onClick={selectPcdPath}>
                         <Trans i18nKey="add_pcd" />
                     </Button>
-                    <Button onClick={() => updatePcd(pcdViewer)}>
+                    <Button onClick={() => updatePcd(pcdViewer)} disabled={show}>
                         <Trans i18nKey="show_pcd" />
                     </Button>
                     <Button onClick={reset}>
