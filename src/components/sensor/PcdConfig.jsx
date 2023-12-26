@@ -126,7 +126,7 @@ const PcdConfig = () => {
         {
             title: <Trans i18nKey="action" />,
             dataIndex: 'colorSelect',
-            width: 90,
+            width: 80,
             fixed: 'right',
             render: (text, record, index) => (
                 <Button
