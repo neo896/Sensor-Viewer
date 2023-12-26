@@ -11,10 +11,12 @@ import SensorStore, { updatePcd } from '../../store/SensorStore';
 import { v4 as uuidv4 } from 'uuid';
 import { withTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 const PcdConfig = () => {
+    const { t, i18n } = useTranslation();
     const { sensorList } = useSnapshot(SensorStore);
     const [pcdViewer, setPcdViewer] = useState([]);
     const [pcdTableData, setPcdTableData] = useState([]);
@@ -40,7 +42,8 @@ const PcdConfig = () => {
                         return { ...obj, path: pcdPath };
                     })
                     .catch(() => {
-                        message('pcd wrong', { title: 'Sensor-Viewer', type: 'error' });
+                        const msg = t('pcd_load_error');
+                        message(msg, { title: 'Sensor-Viewer', type: 'error' });
                         return obj;
                     });
             }

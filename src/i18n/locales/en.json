@@ -54,6 +54,6 @@
         "add_pcd": "Add Pcd",
         "show_pcd": "Show",
         "reset_pcd": "Reset",
-        "pcd_load_error": "Please check if the PCD file is correct, the error file line is "
+        "pcd_load_error": "Please check if the PCD file is correct"
     }
 }

@@ -187,29 +187,28 @@ const Viewer = () => {
         }
     }, [sensorList]);
 
-    // useMemo(() => {
-    //     let pcdViewTmp = [];
-    //     for (let i = 0; i < pcdList.length; i++) {
-    //         console.log(pcdList[i]);
-    //         if (pcdList[i] === null) {
-    //             continue;
-    //         }
-    //         const pcd = useLoader(PCDLoader, pcdList[i].path);
-    //         const material = new THREE.MeshBasicMaterial({ color: pcdList[i].color });
-    //         const pcdM4 = sensorMatrix[pcdList[i].name];
-    //         pcdViewTmp.push(
-    //             <primitive
-    //                 object={pcd}
-    //                 scale={[0.1, 0.1, 0.1]}
-    //                 matrixAutoUpdate={false}
-    //                 material={material}
-    //                 matrix={pcdM4}
-    //                 key={i}
-    //             />
-    //         );
-    //         setPcdView(pcdViewTmp);
-    //     }
-    // }, [pcdList]);
+    useMemo(() => {
+        let pcdViewTmp = [];
+        for (let i = 0; i < pcdList.length; i++) {
+            if (pcdList[i].path.length === 0) {
+                continue;
+            }
+            const pcd = useLoader(PCDLoader, pcdList[i].path);
+            const material = new THREE.MeshBasicMaterial({ color: pcdList[i].color });
+            const pcdM4 = sensorMatrix[pcdList[i].name];
+            pcdViewTmp.push(
+                <primitive
+                    object={pcd}
+                    scale={[0.1, 0.1, 0.1]}
+                    matrixAutoUpdate={false}
+                    material={material}
+                    matrix={pcdM4}
+                    key={i}
+                />
+            );
+            setPcdView(pcdViewTmp);
+        }
+    }, [pcdList]);
 
     return (
         <>

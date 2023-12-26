@@ -54,6 +54,6 @@
         "add_pcd": "添加点云",
         "show_pcd": "展示",
         "reset_pcd": "重置",
-        "pcd_load_error": "请检查pcd文件是否正确，错误文件行数为 "
+        "pcd_load_error": "请检查pcd文件是否正确"
     }
 }
