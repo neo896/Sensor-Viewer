@@ -26,6 +26,7 @@
 -   Support Euler and quaternion rotation methods
 -   Supports sensor configuration file import and export
 -   Support GLTF model file export
+-   Support pcd preview
 
 ## Download
 
