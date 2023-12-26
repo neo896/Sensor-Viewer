@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
-import { OrbitControls, GizmoHelper, GizmoViewport, Html } from '@react-three/drei';
+import { OrbitControls, GizmoHelper, GizmoViewport, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 import { useControls, button } from 'leva';
@@ -31,6 +31,11 @@ const basicMesh = (
         </mesh>
     </>
 );
+
+const Loader = () => {
+    const { progress } = useProgress();
+    return <Html center>{progress} % loaded</Html>;
+};
 
 const Viewer = () => {
     const { sensorList, pcdList } = useSnapshot(SensorStore);
@@ -188,11 +193,11 @@ const Viewer = () => {
     }, [sensorList]);
 
     useMemo(() => {
-        let pcdViewTmp = [];
         for (let i = 0; i < pcdList.length; i++) {
             if (pcdList[i].path.length === 0) {
                 continue;
             }
+            let pcdViewTmp = [];
             const pcd = useLoader(PCDLoader, pcdList[i].path);
             const material = new THREE.MeshBasicMaterial({ color: pcdList[i].color });
             const pcdM4 = sensorMatrix[pcdList[i].name];
@@ -208,11 +213,14 @@ const Viewer = () => {
             );
             setPcdView(pcdViewTmp);
         }
+        if (pcdList.length === 0) {
+            setPcdView([]);
+        }
     }, [pcdList]);
 
     return (
         <>
-            <Suspense fallback={null}>{pcdView.map(item => item)}</Suspense>
+            <Suspense fallback={<Loader />}>{pcdView.map(item => item)}</Suspense>
 
             <OrbitControls makeDefault />
             <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
